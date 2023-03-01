@@ -1,0 +1,16 @@
+version: "3.9" # Docker Compose Version
+
+services:
+  postgres: # Service name
+    image: postgres:13 # Image Name and Version
+    container_name: postgresql # Container Name
+    restart: unless-stopped # It'll be restarted every time there is a trouble
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}       # For ROOT user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}   # User Password
+      - POSTGRES_DB=${DB_DATABASE}        # For ROOT user
+    ports:  # The First one. Is mine  |   The Second one. Belong to PostgreSQL
+      - 127.0.0.1:${DB_PORT_PC}:${DB_PORT}/tcp # We can set the PORT: 5000:5432
+    volumes: # Persistence
+      - ./postgres_data:/var/lip/postgresql 
+      # It’ll be created postgres_data. As soon as we start the Container
